@@ -12,19 +12,24 @@ struct PokeManImagesView: View {
     @ObservedObject var viewModel = PokeManViewModel()
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: gridItem) {
-                    ForEach(viewModel.model) { model in
-                        NavigationLink {
-                            PokimanDetaildView(kfModel: model)
-                        } label: {
-                            PokiCell(kfModel: model)
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [.green.opacity(0.2),.pink.opacity(0.3)]), startPoint: .topLeading, endPoint: .bottomLeading)
+                    .ignoresSafeArea()
+                ScrollView {
+                    LazyVGrid(columns: gridItem) {
+                        ForEach(viewModel.model) { model in
+                            NavigationLink {
+                                PokimanDetaildView(kfModel: model)
+                            } label: {
+                                PokiCell(kfModel: model)
+                            }
                         }
-          
                     }
-                }
-            }.padding(.horizontal,10)
-        }.navigationTitle("PokeMan")
+                }.padding(.horizontal,10)
+                    .navigationTitle("Poki Man")
+            }
+            
+        }
     }
 }
 

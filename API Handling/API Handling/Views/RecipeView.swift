@@ -29,12 +29,17 @@ struct RecipeView: View {
                 }
             }
             .background(Color.red)
+            .navigationTitle("Recipe details")
         }
+        
     }
 }
 
 struct RecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeView()
+        NavigationView {
+            RecipeView()
+        }
+       
     }
 }

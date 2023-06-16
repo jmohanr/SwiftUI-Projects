@@ -12,10 +12,11 @@ struct StartPostView: View {
                   ,SocialMedia(id: 2, name: "Video", image: "video.fill",color: .green),
                   SocialMedia(id: 3, name: "Event", image: "calendar",color: .yellow)
                ]
-    
+    @Binding var searchText: String
+
     var body: some View {
         VStack {
-            Search_BarView()
+            Search_BarView(searchText: $searchText)
             Divider()
             Button { } label: {
                 HStack {
@@ -42,6 +43,6 @@ struct StartPostView: View {
 
 struct StartPostView_Previews: PreviewProvider {
     static var previews: some View {
-        StartPostView()
+        StartPostView(searchText:.constant(""))
     }
 }

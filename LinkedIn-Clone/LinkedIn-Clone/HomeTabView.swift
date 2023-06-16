@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct HomeTabView: View {
+    @State var searchtext: String = ""
     var body: some View {
         TabView {
             HomescreenView().tabItem {
                 Image(systemName: "house.fill")
                 Text("Home")
             }
-            MyNetworkView()
+            MyNetworkView(searchText: $searchtext)
                 .tabItem {
                     Image(systemName: "person.2.fill")
                     Text("My network")

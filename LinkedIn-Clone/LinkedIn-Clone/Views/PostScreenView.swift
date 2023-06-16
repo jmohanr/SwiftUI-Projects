@@ -19,18 +19,40 @@ struct PostScreenView: View {
         .init(id: 6, Image: "6", title: "JungleWorks", followers: 346, profileImage: "00")
         
         ]
-    
+    @Binding var searchText: String
     var body: some View {
-        ScrollView {
-            ForEach(postData, id: \.id) { post in
-                PostCardView(card: post)
-            }
+        ZStack(alignment: .center) {
+            Image("nodata")
+                .frame(maxWidth: .infinity,maxHeight: .infinity)
+                .isHidden(hidden: cardsData.count > 0 ? true : false)
+            ScrollView {
+                ForEach(cardsData, id: \.id) { post in
+                    PostCardView(card: post)
+                }
+            }.isHidden(hidden: cardsData.count > 0 ? false : true)
+        }
+       
+    }
+    
+    var cardsData: [PostData] {
+        if searchText.isEmpty {
+            return postData
+        } else {
+            return postData.filter{$0.title.localizedStandardContains(searchText)}
         }
     }
 }
 
 struct PostScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        PostScreenView()
+        PostScreenView(searchText: .constant(""))
+    }
+}
+
+extension View {
+    func isHidden(hidden: Bool) -> some View {
+       
+        return opacity(hidden ? 0:1)
+        
     }
 }

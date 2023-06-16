@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Search_BarView: View {
-    @State var searchText = ""
+    @Binding var searchText: String
     var body: some View {
         VStack {
             searchView
@@ -41,6 +41,6 @@ extension Search_BarView {
 }
 struct Search_BarView_Previews: PreviewProvider {
     static var previews: some View {
-        Search_BarView()
+        Search_BarView(searchText: .constant(""))
     }
 }

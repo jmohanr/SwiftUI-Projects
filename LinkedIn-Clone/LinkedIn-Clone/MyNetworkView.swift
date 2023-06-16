@@ -27,10 +27,11 @@ struct MyNetworkView: View {
         .init(id: 15, name: "Nancy", position: "Frontend Developer", mutual: 18, image: "03")
 
     ]
+    @Binding var searchText: String
     var body: some View {
         
         VStack {
-            Search_BarView()
+            Search_BarView(searchText: $searchText)
             HStack {
                 NavigationLink {} label: {
                     Text("Manage my network").foregroundColor(.blue)
@@ -51,18 +52,33 @@ struct MyNetworkView: View {
             }.padding(.horizontal)
             
          Divider()
-            ScrollView {
-                ForEach(networkData, id: \.id) { item in
-                    InvitationView(sampleData: item)
-                    Divider()
-                }
+            ZStack {
+                Image("nodata")
+                    .frame(maxWidth: .infinity,maxHeight: .infinity)
+                    .isHidden(hidden: cardsData.count > 0 ? true : false)
+                ScrollView {
+                    ForEach(cardsData, id: \.id) { item in
+                        InvitationView(sampleData: item)
+                        Divider()
+                    }
+                } .isHidden(hidden: cardsData.count > 0 ? false : true)
             }
+            
+            
+        }
+    }
+    
+    var cardsData: [NetworkModel] {
+        if searchText.isEmpty {
+            return networkData
+        } else {
+            return networkData.filter{$0.name.localizedStandardContains(searchText) || $0.position.localizedStandardContains(searchText)}
         }
     }
 }
 
 struct MyNetworkView_Previews: PreviewProvider {
     static var previews: some View {
-        MyNetworkView()
+        MyNetworkView(searchText: .constant(""))
     }
 }

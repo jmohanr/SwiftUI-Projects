@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct HomescreenView: View {
+    @State var searchText: String = ""
     var body: some View {
         VStack {
-           StartPostView()
+            StartPostView(searchText: $searchText)
             Rectangle().frame(height: 5)
                 .foregroundColor(.gray.opacity(0.3))
-            PostScreenView()
+            PostScreenView(searchText: $searchText)
         }
     }
 }
